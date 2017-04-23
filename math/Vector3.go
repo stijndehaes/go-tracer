@@ -6,14 +6,6 @@ type Vector3 struct {
 	X, Y, Z float64
 }
 
-func (first *Vector3) Multiply(second *Vector3) *Vector3 {
-	return &Vector3{
-		X: first.X * second.X,
-	 	Y: first.Y * second.Y,
-		Z: first.Z * second.Z,
-	}
-}
-
 func (first *Vector3) Add(second *Vector3) *Vector3 {
 	return &Vector3{
 		X: first.X + second.X,

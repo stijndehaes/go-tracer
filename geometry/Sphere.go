@@ -22,27 +22,25 @@ func (sphere *Sphere) Material() raytracer.Material {
 
 
 func (sphere *Sphere) Hit(ray *raytracer.Ray) {
-	l := sphere.Center.Subtract(ray.Eye);
-	tca := l.DotProduct(ray.Direction)
-	d2 := l.DotProduct(l) - tca * tca;
-	if d2 > sphere.radius2() {
+	a := ray.Direction.DotProduct(ray.Direction)
+
+	eMinC := ray.Eye.Subtract(&sphere.Center)
+	b :=  ray.Direction.DotProduct(eMinC) * 2.0
+	c := eMinC.DotProduct(eMinC) - sphere.radius2()
+	discriminant := b * b - (4 * a * c)
+	if discriminant < 0 {
 		return
 	}
-	thc := gomath.Sqrt(sphere.radius2() - d2)
-	t0 := tca - thc
-	t1 := tca + thc
-	if (t0 > t1) {
-		temp := t0
-		t0 = t1
-		t1 = temp
+
+	t1 := (-b + gomath.Sqrt(discriminant)) / (2 * a)
+	t2 := (-b - gomath.Sqrt(discriminant)) / (2 * a)
+	if t1 > t2 {
+		temp := t1
+		t1 = t2
+		t2 = temp
 	}
-	if t0 < raytracer.MinDistance {
-		t0 = t1; // if t0 is negative, let's use t1 instead
-		if t0 < raytracer.MinDistance {
-			return
-		} // both t0 and t1 are negative
-	}
-	if ray.IsHit(t0, sphere) {
+
+	if ray.IsHit(t1, sphere) || ray.IsHit(t2, sphere){
 		ray.Normal = ray.HitPoint().Subtract(&sphere.Center).Normalize()
 	}
 }

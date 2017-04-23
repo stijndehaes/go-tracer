@@ -14,15 +14,6 @@ func TestVector3_Add(t *testing.T) {
 	assert.Equal(t, 2.0, vector3.Z)
 }
 
-func TestVector3_Multiply(t *testing.T) {
-	vector1 := Vector3{ X: 1, Y: 1, Z: 1}
-	vector2 := Vector3{ X: 1, Y: 2, Z: 3}
-	vector3 := vector1.Multiply(&vector2)
-	assert.Equal(t, 1.0, vector3.X)
-	assert.Equal(t, 2.0, vector3.Y)
-	assert.Equal(t, 3.0, vector3.Z)
-}
-
 func TestVector3_Subtract(t *testing.T) {
 	vector1 := Vector3{ X: 1, Y: 1, Z: 1}
 	vector2 := Vector3{ X: 1, Y: 1, Z: 1}
