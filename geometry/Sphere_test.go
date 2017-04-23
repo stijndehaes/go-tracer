@@ -17,6 +17,7 @@ func TestSphere_Hit(t *testing.T) {
 		Direction: &math.Vector3{X: 1 },
 		HitDistance: math2.MaxFloat64,
 	}
-	assert.True(t, sphere.Hit(&ray))
+	sphere.Hit(&ray)
+	assert.True(t, ray.Hit)
 	assert.Equal(t, 9.0, ray.HitDistance)
 }

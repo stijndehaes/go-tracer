@@ -69,6 +69,6 @@ func TestVector3_Normalize(t *testing.T) {
 func TestVector3_CrossProduct(t *testing.T) {
 	vector1 := Vector3{ X: 1}
 	vector2 := Vector3{ Y: 1}
-	vector3 := Vector3{ Z: 1}
+	vector3 := &Vector3{ Z: 1}
 	assert.Equal(t, vector3, vector1.CrossProduct(&vector2))
 }

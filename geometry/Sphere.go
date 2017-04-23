@@ -9,19 +9,24 @@ import (
 type Sphere struct {
 	Center math.Vector3
 	Radius float64
+	SphereMaterial raytracer.Material
 }
 
 func (sphere *Sphere) radius2() float64 {
 	return sphere.Radius * sphere.Radius
 }
 
-func (sphere *Sphere) Hit(ray *raytracer.Ray) bool {
+func (sphere *Sphere) Material() raytracer.Material {
+	return sphere.SphereMaterial
+}
 
+
+func (sphere *Sphere) Hit(ray *raytracer.Ray) {
 	l := sphere.Center.Subtract(ray.Eye);
 	tca := l.DotProduct(ray.Direction)
-	d2 := l.DotProduct(&l) - tca * tca;
+	d2 := l.DotProduct(l) - tca * tca;
 	if d2 > sphere.radius2() {
-		return false
+		return
 	}
 	thc := gomath.Sqrt(sphere.radius2() - d2)
 	t0 := tca - thc
@@ -31,11 +36,13 @@ func (sphere *Sphere) Hit(ray *raytracer.Ray) bool {
 		t0 = t1
 		t1 = temp
 	}
-	if t0 < 0 {
+	if t0 < raytracer.MinDistance {
 		t0 = t1; // if t0 is negative, let's use t1 instead
-		if t0 < 0 {
-			return false
+		if t0 < raytracer.MinDistance {
+			return
 		} // both t0 and t1 are negative
 	}
-	return ray.IsHit(t0)
+	if ray.IsHit(t0, sphere) {
+		ray.Normal = ray.HitPoint().Subtract(&sphere.Center).Normalize()
+	}
 }

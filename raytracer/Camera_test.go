@@ -9,9 +9,9 @@ import (
 
 func TestCamera_GenerateRay(t *testing.T) {
 	camera := GetCamera(
-		math.Vector3{},
-		math.Vector3{Y: 1.0},
-		math.Vector3{X: 1.0},
+		&math.Vector3{},
+		&math.Vector3{Y: 1.0},
+		&math.Vector3{X: 1.0},
 		90.0,
 		1.0,
 		3,
@@ -24,14 +24,14 @@ func TestCamera_GenerateRay(t *testing.T) {
 
 func TestCamera_getRayDirection(t *testing.T) {
 	camera := GetCamera(
-		math.Vector3{},
-		math.Vector3{Y: 1.0},
-		math.Vector3{X: 1.0},
+		&math.Vector3{},
+		&math.Vector3{Y: 1.0},
+		&math.Vector3{X: 1.0},
 		90.0,
 		1.0,
 		3,
 		3,
 	)
 	direction := camera.getRayDirection(1, 1)
-	assert.Equal(t, math.Vector3{X:1.0}, direction)
+	assert.Equal(t, math.Vector3{X:1.0}, *direction)
 }
