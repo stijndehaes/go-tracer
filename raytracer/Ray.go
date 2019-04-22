@@ -1,23 +1,21 @@
 package raytracer
 
 import (
-	"github.com/Steniaz/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/math"
 	gomath "math"
 )
 
-
-
 type Ray struct {
-	Eye *math.Vector3
-	Direction *math.Vector3
+	Eye         *math.Vector3
+	Direction   *math.Vector3
 	HitDistance float64
-	Hit bool
-	Geometry Geometry
-	Normal *math.Vector3
+	Hit         bool
+	Geometry    Geometry
+	Normal      *math.Vector3
 }
 
 func (ray *Ray) IsHit(f float64, geometry Geometry) bool {
-	if MinDistance <= f && f <= ray.HitDistance{
+	if MinDistance <= f && f <= ray.HitDistance {
 		ray.HitDistance = f
 		ray.Hit = true
 		ray.Geometry = geometry
@@ -32,8 +30,8 @@ func (ray *Ray) HitPoint() *math.Vector3 {
 
 func NewRay(eye *math.Vector3, direction *math.Vector3) Ray {
 	return Ray{
-		Eye: eye,
-		Direction: direction,
+		Eye:         eye,
+		Direction:   direction,
 		HitDistance: gomath.MaxFloat64,
 	}
 }

@@ -1,7 +1,7 @@
 package accelerators
 
 import (
-	"github.com/Steniaz/go-tracer/raytracer"
+	"github.com/stijndehaes/go-tracer/raytracer"
 )
 
 type DumbAccelerator struct {
@@ -9,7 +9,7 @@ type DumbAccelerator struct {
 }
 
 func (acc *DumbAccelerator) IntersectGeometry(ray *raytracer.Ray) {
-	for _, geometry := range(acc.geometries) {
+	for _, geometry := range acc.geometries {
 		geometry.Hit(ray)
 	}
 }

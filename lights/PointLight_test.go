@@ -1,14 +1,14 @@
 package lights
 
 import (
-	"testing"
-	"github.com/Steniaz/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/math"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestPointLight_SampleLight(t *testing.T) {
 	light := PointLight{
-		Color: &math.Color3{R: 1.0},
+		Color:  &math.Color3{R: 1.0},
 		Origin: &math.Vector3{0, 10, 0},
 	}
 	hit := &math.Vector3{0, 1, 0}

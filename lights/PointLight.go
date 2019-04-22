@@ -1,11 +1,11 @@
 package lights
 
 import (
-	"github.com/Steniaz/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/math"
 )
 
 type PointLight struct {
-	Color *math.Color3
+	Color  *math.Color3
 	Origin *math.Vector3
 }
 

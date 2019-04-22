@@ -1,20 +1,20 @@
 package main
 
 import (
-	"github.com/Steniaz/go-tracer/utils"
+	"github.com/stijndehaes/go-tracer/accelerators"
+	"github.com/stijndehaes/go-tracer/geometry"
+	"github.com/stijndehaes/go-tracer/integrators"
+	"github.com/stijndehaes/go-tracer/lights"
+	"github.com/stijndehaes/go-tracer/materials"
+	"github.com/stijndehaes/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/raytracer"
+	"github.com/stijndehaes/go-tracer/utils"
 	"image"
-	"github.com/Steniaz/go-tracer/math"
-	"github.com/Steniaz/go-tracer/raytracer"
-	"github.com/Steniaz/go-tracer/geometry"
-	"github.com/Steniaz/go-tracer/accelerators"
-	"github.com/Steniaz/go-tracer/materials"
-	"github.com/Steniaz/go-tracer/integrators"
-	"github.com/Steniaz/go-tracer/lights"
 	gomath "math"
 )
 
 func main() {
-	canvas := utils.CreateCanvas(image.Point{1000, 1000})
+	canvas := utils.CreateCanvas(image.Point{X: 1000, Y: 1000})
 	camera := raytracer.GetCamera(
 		&math.Vector3{X: -8},
 		&math.Vector3{Y: 1.0},
@@ -25,22 +25,21 @@ func main() {
 		1000,
 	)
 
-	sphere1 :=  geometry.Sphere{
-		math.Vector3{},
-		1.0,
-		&materials.DiffuseMaterial{&math.Color3{R: gomath.Pi}},
+	sphere1 := geometry.Sphere{
+		Radius:         1.0,
+		SphereMaterial: &materials.DiffuseMaterial{Reflectance: &math.Color3{R: gomath.Pi}},
 	}
 
-	sphere2 :=  geometry.Sphere{
-		math.Vector3{Z: -3.0},
-		1.0,
-		&materials.DiffuseMaterial{&math.Color3{G: gomath.Pi}},
+	sphere2 := geometry.Sphere{
+		Center:         math.Vector3{Z: -3.0},
+		Radius:         1.0,
+		SphereMaterial: &materials.DiffuseMaterial{Reflectance: &math.Color3{G: gomath.Pi}},
 	}
 
-	sphere3 :=  geometry.Sphere{
-		math.Vector3{Z: 3.0},
-		1.0,
-		&materials.DiffuseMaterial{&math.Color3{B: gomath.Pi}},
+	sphere3 := geometry.Sphere{
+		Center:         math.Vector3{Z: 3.0},
+		Radius:         1.0,
+		SphereMaterial: &materials.DiffuseMaterial{Reflectance: &math.Color3{B: gomath.Pi}},
 	}
 	acc := accelerators.DumbAccelerator{}
 
@@ -48,19 +47,19 @@ func main() {
 	acc.AddGeometry(&sphere2)
 	acc.AddGeometry(&sphere3)
 
-	light := lights.PointLight{
-		&math.Color3{100.0, 100.0, 100.0},
-		&math.Vector3{0.0, 10.0, 0.0},
+	var light = lights.PointLight{
+		Color:  &math.Color3{R: 100.0, G: 100.0, B: 100.0},
+		Origin: &math.Vector3{Y: 10.0},
 	}
 	sceneLights := []raytracer.Light{light}
 
 	scene := raytracer.Scene{
-		&camera,
-		&acc,
-		sceneLights,
+		Camera:      &camera,
+		Accelerator: &acc,
+		Lights:      sceneLights,
 	}
 	integrator := integrators.DirectLightningIntegrator{
-		&scene,
+		Scene: &scene,
 	}
 
 	for x := 0; x < canvas.Size.X; x++ {

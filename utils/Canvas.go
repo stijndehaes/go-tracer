@@ -1,10 +1,10 @@
 package utils
 
 import (
+	"github.com/stijndehaes/go-tracer/math"
 	"image"
-	"github.com/Steniaz/go-tracer/math"
-	"os"
 	"image/png"
+	"os"
 )
 
 type Canvas struct {
@@ -13,7 +13,7 @@ type Canvas struct {
 }
 
 func CreateCanvas(size image.Point) *Canvas {
-	im := image.NewRGBA64(image.Rectangle{image.Point{0, 0}, size})
+	im := image.NewRGBA64(image.Rectangle{Min: image.Point{}, Max: size})
 	return &Canvas{
 		im,
 		size,
@@ -21,7 +21,7 @@ func CreateCanvas(size image.Point) *Canvas {
 }
 
 func (canvas *Canvas) Put(x, y int, color *math.Color3) {
-	canvas.image.Set(x, canvas.Size.Y - y, color.RGBA64())
+	canvas.image.Set(x, canvas.Size.Y-y, color.RGBA64())
 }
 
 func (canvas *Canvas) SaveAsFile(filename string) {

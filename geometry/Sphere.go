@@ -1,14 +1,14 @@
 package geometry
 
 import (
-	"github.com/Steniaz/go-tracer/math"
-	"github.com/Steniaz/go-tracer/raytracer"
+	"github.com/stijndehaes/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/raytracer"
 	gomath "math"
 )
 
 type Sphere struct {
-	Center math.Vector3
-	Radius float64
+	Center         math.Vector3
+	Radius         float64
 	SphereMaterial raytracer.Material
 }
 
@@ -20,14 +20,13 @@ func (sphere *Sphere) Material() raytracer.Material {
 	return sphere.SphereMaterial
 }
 
-
 func (sphere *Sphere) Hit(ray *raytracer.Ray) {
 	a := ray.Direction.DotProduct(ray.Direction)
 
 	eMinC := ray.Eye.Subtract(&sphere.Center)
-	b :=  ray.Direction.DotProduct(eMinC) * 2.0
+	b := ray.Direction.DotProduct(eMinC) * 2.0
 	c := eMinC.DotProduct(eMinC) - sphere.radius2()
-	discriminant := b * b - (4 * a * c)
+	discriminant := b*b - (4 * a * c)
 	if discriminant < 0 {
 		return
 	}
@@ -40,7 +39,7 @@ func (sphere *Sphere) Hit(ray *raytracer.Ray) {
 		t2 = temp
 	}
 
-	if ray.IsHit(t1, sphere) || ray.IsHit(t2, sphere){
+	if ray.IsHit(t1, sphere) || ray.IsHit(t2, sphere) {
 		ray.Normal = ray.HitPoint().Subtract(&sphere.Center).Normalize()
 	}
 }

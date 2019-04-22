@@ -1,7 +1,7 @@
 package raytracer
 
 import (
-	"github.com/Steniaz/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/math"
 )
 
 type Integrator interface {

@@ -1,8 +1,8 @@
 package materials
 
 import (
-	"github.com/Steniaz/go-tracer/raytracer"
-	"github.com/Steniaz/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/raytracer"
 )
 
 type DiffuseMaterial struct {

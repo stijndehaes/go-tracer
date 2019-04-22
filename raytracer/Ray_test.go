@@ -1,10 +1,10 @@
 package raytracer
 
 import (
-	"testing"
+	math2 "github.com/stijndehaes/go-tracer/math"
 	"github.com/stretchr/testify/assert"
 	"math"
-	math2 "github.com/Steniaz/go-tracer/math"
+	"testing"
 )
 
 func TestRay_IsHit_no_previous(t *testing.T) {
@@ -34,8 +34,8 @@ func TestRay_IsHit_MinDistance(t *testing.T) {
 
 func TestRay_HitPoint(t *testing.T) {
 	ray := Ray{
-		Eye: &math2.Vector3{},
-		Direction: &math2.Vector3{X: 1},
+		Eye:         &math2.Vector3{},
+		Direction:   &math2.Vector3{X: 1},
 		HitDistance: 1,
 	}
 	hitPoint := ray.HitPoint()

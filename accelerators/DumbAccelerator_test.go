@@ -1,9 +1,9 @@
 package accelerators
 
 import (
-	"testing"
-	"github.com/Steniaz/go-tracer/geometry"
+	"github.com/stijndehaes/go-tracer/geometry"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestDumbAccelerator_AddGeometry(t *testing.T) {

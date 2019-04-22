@@ -1,8 +1,8 @@
 package integrators
 
 import (
-	"github.com/Steniaz/go-tracer/raytracer"
-	"github.com/Steniaz/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/math"
+	"github.com/stijndehaes/go-tracer/raytracer"
 )
 
 type DirectLightningIntegrator struct {
@@ -29,7 +29,7 @@ func (integrator *DirectLightningIntegrator) shadeGeometryWithLight(light raytra
 	lightRay := &raytracer.Ray{Eye: hit, Direction: direction, HitDistance: distance}
 	integrator.Scene.Accelerator.IntersectGeometry(lightRay)
 	dirMulNormal := direction.DotProduct(ray.Normal)
-	if !lightRay.Hit && dirMulNormal > 0{
+	if !lightRay.Hit && dirMulNormal > 0 {
 		return ray.Geometry.Material().Shade(ray.Direction, direction, ray).Multiply(color).MultiplyFloat(dirMulNormal)
 	} else {
 		return &math.Color3{}

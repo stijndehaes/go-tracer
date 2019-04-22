@@ -22,37 +22,37 @@ func (first *Vector3) Subtract(second *Vector3) *Vector3 {
 	}
 }
 
-func (vector *Vector3) Norm() float64 {
-	return math.Sqrt( vector.X * vector.X + (vector.Y * vector.Y) + (vector.Z * vector.Z))
+func (first *Vector3) Norm() float64 {
+	return math.Sqrt(first.X*first.X + (first.Y * first.Y) + (first.Z * first.Z))
 }
 
-func (vector *Vector3) Normalize() *Vector3 {
-	normal := vector.Norm()
+func (first *Vector3) Normalize() *Vector3 {
+	normal := first.Norm()
 	return &Vector3{
-		X: vector.X / normal,
-		Y: vector.Y / normal,
-		Z: vector.Z / normal,
+		X: first.X / normal,
+		Y: first.Y / normal,
+		Z: first.Z / normal,
 	}
 }
 
-func (vector *Vector3) MultiplyFloat(f float64) *Vector3 {
+func (first *Vector3) MultiplyFloat(f float64) *Vector3 {
 	return &Vector3{
-		X: vector.X * f,
-		Y: vector.Y * f,
-		Z: vector.Z * f,
+		X: first.X * f,
+		Y: first.Y * f,
+		Z: first.Z * f,
 	}
 }
 
-func (vector *Vector3) Negative() *Vector3 {
+func (first *Vector3) Negative() *Vector3 {
 	return &Vector3{
-		X: -vector.X,
-		Y: -vector.Y,
-		Z: -vector.Z,
+		X: -first.X,
+		Y: -first.Y,
+		Z: -first.Z,
 	}
 }
 
 func (first *Vector3) DotProduct(second *Vector3) float64 {
-	return first.X * second.X + (first.Y * second.Y) + (first.Z * second.Z)
+	return first.X*second.X + (first.Y * second.Y) + (first.Z * second.Z)
 }
 
 func (first *Vector3) CrossProduct(second *Vector3) *Vector3 {
