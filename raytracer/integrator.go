@@ -5,5 +5,5 @@ import (
 )
 
 type Integrator interface {
-	RenderRay(ray Ray) *math.Color3
+	RenderRay(ray *Ray) *math.Color3
 }

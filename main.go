@@ -62,12 +62,12 @@ func main() {
 		Scene: &scene,
 	}
 
-	for x := 0; x < canvas.Size.X; x++ {
-		for y := 0; y < canvas.Size.Y; y++ {
-			ray := camera.GenerateRay(x, y)
-			canvas.Put(x, y, integrator.RenderRay(&ray))
-		}
+	t := raytracer.Tracer{
+		Scene:      &scene,
+		Integrator: &integrator,
 	}
+
+	t.RenderOnCanvas(canvas)
 	err := canvas.SaveAsFile("out.png")
 	if err != nil {
 		panic(err)
