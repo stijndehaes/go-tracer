@@ -25,27 +25,27 @@ func main() {
 		1000,
 	)
 
-	sphere1 := geometry.Sphere{
-		Radius:         1.0,
-		SphereMaterial: &materials.DiffuseMaterial{Reflectance: &math.Color3{R: gomath.Pi}},
+	colors := []*math.Color3{
+		{R: gomath.Pi},
+		{G: gomath.Pi},
+		{B: gomath.Pi},
 	}
 
-	sphere2 := geometry.Sphere{
-		Center:         math.Vector3{Z: -3.0},
-		Radius:         1.0,
-		SphereMaterial: &materials.DiffuseMaterial{Reflectance: &math.Color3{G: gomath.Pi}},
-	}
-
-	sphere3 := geometry.Sphere{
-		Center:         math.Vector3{Z: 3.0},
-		Radius:         1.0,
-		SphereMaterial: &materials.DiffuseMaterial{Reflectance: &math.Color3{B: gomath.Pi}},
-	}
 	acc := accelerators.DumbAccelerator{}
-
-	acc.AddGeometry(&sphere1)
-	acc.AddGeometry(&sphere2)
-	acc.AddGeometry(&sphere3)
+	for x := 0; x <= 40; x = x + 1 {
+		for y := 0; y <= 40; y = y + 1 {
+			sphere := geometry.Sphere{
+				Radius: 0.3,
+				Center: math.Vector3{
+					Z: -20.0 + float64(x),
+					X: -5.0 + float64(y),
+					Y: -3.0,
+				},
+				SphereMaterial: &materials.DiffuseMaterial{Reflectance: colors[(x+y)%3]},
+			}
+			acc.AddGeometry(&sphere)
+		}
+	}
 
 	var light = lights.PointLight{
 		Color:  &math.Color3{R: 100.0, G: 100.0, B: 100.0},
