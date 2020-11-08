@@ -6,12 +6,12 @@ import (
 )
 
 type Ray struct {
-	Eye         *math.Vector3
-	Direction   *math.Vector3
+	Eye         math.Vector3
+	Direction   math.Vector3
 	HitDistance float64
 	Hit         bool
 	Geometry    Geometry
-	Normal      *math.Vector3
+	Normal      math.Vector3
 }
 
 func (ray *Ray) IsHit(f float64, geometry Geometry) bool {
@@ -24,11 +24,11 @@ func (ray *Ray) IsHit(f float64, geometry Geometry) bool {
 	return false
 }
 
-func (ray *Ray) HitPoint() *math.Vector3 {
+func (ray *Ray) HitPoint() math.Vector3 {
 	return ray.Direction.MultiplyFloat(ray.HitDistance).Add(ray.Eye)
 }
 
-func NewRay(eye *math.Vector3, direction *math.Vector3) Ray {
+func NewRay(eye math.Vector3, direction math.Vector3) Ray {
 	return Ray{
 		Eye:         eye,
 		Direction:   direction,

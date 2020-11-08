@@ -9,10 +9,10 @@ type DirectLightningIntegrator struct {
 	Scene *raytracer.Scene
 }
 
-func (integrator *DirectLightningIntegrator) RenderRay(ray *raytracer.Ray) *math.Color3 {
+func (integrator *DirectLightningIntegrator) RenderRay(ray *raytracer.Ray) math.Color3 {
 	integrator.Scene.Accelerator.IntersectGeometry(ray)
 
-	color := &math.Color3{}
+	color := math.Color3{}
 	if !ray.Hit {
 		return color
 	}
@@ -23,7 +23,7 @@ func (integrator *DirectLightningIntegrator) RenderRay(ray *raytracer.Ray) *math
 	return color
 }
 
-func (integrator *DirectLightningIntegrator) shadeGeometryWithLight(light raytracer.Light, ray *raytracer.Ray) *math.Color3 {
+func (integrator *DirectLightningIntegrator) shadeGeometryWithLight(light raytracer.Light, ray *raytracer.Ray) math.Color3 {
 	hit := ray.HitPoint()
 	direction, distance, color := light.SampleLight(hit)
 	lightRay := &raytracer.Ray{Eye: hit, Direction: direction, HitDistance: distance}
@@ -32,6 +32,6 @@ func (integrator *DirectLightningIntegrator) shadeGeometryWithLight(light raytra
 	if !lightRay.Hit && dirMulNormal > 0 {
 		return ray.Geometry.Material().Shade(ray.Direction, direction, ray).Multiply(color).MultiplyFloat(dirMulNormal)
 	} else {
-		return &math.Color3{}
+		return math.Color3{}
 	}
 }

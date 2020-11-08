@@ -5,5 +5,5 @@ import (
 )
 
 type Light interface {
-	SampleLight(hit *math.Vector3) (*math.Vector3, float64, *math.Color3)
+	SampleLight(hit math.Vector3) (math.Vector3, float64, math.Color3)
 }

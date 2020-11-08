@@ -16,16 +16,16 @@ import (
 func main() {
 	canvas := utils.CreateCanvas(image.Point{X: 1000, Y: 1000})
 	camera := raytracer.GetCamera(
-		&math.Vector3{X: -8},
-		&math.Vector3{Y: 1.0},
-		&math.Vector3{X: 1.0},
+		math.Vector3{X: -8},
+		math.Vector3{Y: 1.0},
+		math.Vector3{X: 1.0},
 		75.0,
 		1.0,
 		1000,
 		1000,
 	)
 
-	colors := []*math.Color3{
+	colors := []math.Color3{
 		{R: gomath.Pi},
 		{G: gomath.Pi},
 		{B: gomath.Pi},

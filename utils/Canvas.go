@@ -20,7 +20,7 @@ func CreateCanvas(size image.Point) *Canvas {
 	}
 }
 
-func (canvas *Canvas) Put(x, y int, color *math.Color3) {
+func (canvas *Canvas) Put(x, y int, color math.Color3) {
 	canvas.image.Set(x, canvas.Size.Y-y, color.RGBA64())
 }
 
