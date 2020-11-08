@@ -1,8 +1,8 @@
 package math
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestAddVector4(t *testing.T) {

@@ -1,7 +1,7 @@
 package raytracer
 
 type Scene struct {
-	Camera *Camera
+	Camera      *Camera
 	Accelerator Accelerator
-	Lights []Light
+	Lights      []Light
 }
