@@ -24,8 +24,11 @@ func (canvas *Canvas) Put(x, y int, color *math.Color3) {
 	canvas.image.Set(x, canvas.Size.Y-y, color.RGBA64())
 }
 
-func (canvas *Canvas) SaveAsFile(filename string) {
+func (canvas *Canvas) SaveAsFile(filename string) error {
 	toimg, _ := os.Create(filename)
-	png.Encode(toimg, canvas.image)
-	toimg.Close()
+	err := png.Encode(toimg, canvas.image)
+	if err != nil {
+		return err
+	}
+	return toimg.Close()
 }

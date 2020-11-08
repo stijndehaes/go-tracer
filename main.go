@@ -68,5 +68,8 @@ func main() {
 			canvas.Put(x, y, integrator.RenderRay(&ray))
 		}
 	}
-	canvas.SaveAsFile("out.png")
+	err := canvas.SaveAsFile("out.png")
+	if err != nil {
+		panic(err)
+	}
 }
