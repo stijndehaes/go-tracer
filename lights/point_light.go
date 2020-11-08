@@ -9,7 +9,7 @@ type PointLight struct {
 	Origin *math.Vector3
 }
 
-func (light PointLight) SampleLight(hit *math.Vector3) (*math.Vector3, float64, *math.Color3) {
+func (light PointLight) SampleLight(hit math.Vector3) (math.Vector3, float64, math.Color3) {
 	temp := light.Origin.Subtract(hit)
 	direction := temp.Normalize()
 	distance := temp.Norm()

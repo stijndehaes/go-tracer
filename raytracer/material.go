@@ -5,5 +5,5 @@ import (
 )
 
 type Material interface {
-	Shade(in *math.Vector3, out *math.Vector3, ray *Ray) *math.Color3
+	Shade(in math.Vector3, out math.Vector3, ray *Ray) math.Color3
 }

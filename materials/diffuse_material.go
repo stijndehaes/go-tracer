@@ -6,9 +6,9 @@ import (
 )
 
 type DiffuseMaterial struct {
-	Reflectance *math.Color3
+	Reflectance math.Color3
 }
 
-func (mat *DiffuseMaterial) Shade(in *math.Vector3, out *math.Vector3, ray *raytracer.Ray) *math.Color3 {
+func (mat *DiffuseMaterial) Shade(in math.Vector3, out math.Vector3, ray *raytracer.Ray) math.Color3 {
 	return mat.Reflectance
 }
