@@ -52,7 +52,7 @@ func (first Vector3) Negative() Vector3 {
 }
 
 func (first Vector3) DotProduct(second Vector3) float64 {
-	return first.X*second.X + (first.Y * second.Y) + (first.Z * second.Z)
+	return (first.X * second.X) + (first.Y * second.Y) + (first.Z * second.Z)
 }
 
 func (first Vector3) CrossProduct(second Vector3) Vector3 {

@@ -46,6 +46,44 @@ func main() {
 			acc.AddGeometry(&sphere)
 		}
 	}
+	triangleLenght := 50.
+	acc.AddGeometry(geometry.NewTriangle(
+		math.Vector3{
+			Z: -1 * triangleLenght,
+			X: -1 * triangleLenght,
+			Y: -3.1,
+		},
+		math.Vector3{
+			Z: triangleLenght,
+			X: -1 * triangleLenght,
+			Y: -3.1,
+		},
+		math.Vector3{
+			Z: triangleLenght,
+			X: 20,
+			Y: -3.1,
+		},
+		&materials.DiffuseMaterial{Reflectance: math.Color3{R: gomath.Pi}},
+	))
+	acc.AddGeometry(geometry.NewTriangle(
+		math.Vector3{
+			Z: -1 * triangleLenght,
+			X: -1 * triangleLenght,
+			Y: -3.1,
+		},
+
+		math.Vector3{
+			Z: triangleLenght,
+			X: 20,
+			Y: -3.1,
+		},
+		math.Vector3{
+			Z: -1 * triangleLenght,
+			X: triangleLenght,
+			Y: -3.1,
+		},
+		&materials.DiffuseMaterial{Reflectance: math.Color3{R: gomath.Pi}},
+	))
 
 	var light = lights.PointLight{
 		Color:  &math.Color3{R: 100.0, G: 100.0, B: 100.0},
