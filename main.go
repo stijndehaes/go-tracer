@@ -14,15 +14,17 @@ import (
 )
 
 func main() {
-	canvas := utils.CreateCanvas(image.Point{X: 1000, Y: 1000})
+	x := 4000
+	y := 4000
+	canvas := utils.CreateCanvas(image.Point{X: x, Y: y})
 	camera := raytracer.GetCamera(
 		math.Vector3{X: -8},
 		math.Vector3{Y: 1.0},
 		math.Vector3{X: 1.0},
 		75.0,
 		1.0,
-		1000,
-		1000,
+		x,
+		y,
 	)
 
 	colors := []math.Color3{

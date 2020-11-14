@@ -10,21 +10,19 @@ import (
 type Tracer struct {
 	Scene      *Scene
 	Integrator Integrator
-	pixels     chan Pixel
+	pixels     chan PixelRow
 	wg         sync.WaitGroup
 }
 
-type Pixel struct {
-	X, Y int
+type PixelRow struct {
+	X int
 }
 
 func (t *Tracer) RenderOnCanvas(canvas *utils.Canvas) {
-	t.pixels = make(chan Pixel, 100)
+	t.pixels = make(chan PixelRow, 100)
 	t.startWorkers(canvas)
 	for x := 0; x < canvas.Size.X; x++ {
-		for y := 0; y < canvas.Size.Y; y++ {
-			t.pixels <- Pixel{X: x, Y: y}
-		}
+		t.pixels <- PixelRow{X: x}
 	}
 	close(t.pixels)
 	t.wg.Wait()
@@ -36,9 +34,12 @@ func (t *Tracer) startWorkers(canvas *utils.Canvas) {
 		t.wg.Add(1)
 		go func() {
 			defer t.wg.Done()
-			for pixel := range t.pixels {
-				ray := t.Scene.Camera.GenerateRay(pixel.X, pixel.Y)
-				canvas.Put(pixel.X, pixel.Y, t.Integrator.RenderRay(&ray))
+			for pixelRow := range t.pixels {
+				for y := 0; y < canvas.Size.Y; y++ {
+					ray := t.Scene.Camera.GenerateRay(pixelRow.X, y)
+					canvas.Put(pixelRow.X, y, t.Integrator.RenderRay(&ray))
+				}
+
 			}
 		}()
 	}

@@ -8,14 +8,14 @@ import (
 type Camera struct {
 	eye, up, direction          math.Vector3
 	fov, distance               float64
-	nx, ny                      int
+	nxInverse, nyInverse        float64
 	l, r, b, t, tanfov2, nxopny float64
 	w, u, v                     math.Vector3
 }
 
 func (camera *Camera) getRayDirection(x, y int) math.Vector3 {
-	uVal := camera.l + (camera.r-camera.l)*(float64(x)+0.5)/float64(camera.nx)
-	vVal := camera.b + (camera.t-camera.b)*(float64(y)+0.5)/float64(camera.ny)
+	uVal := camera.l + (camera.r-camera.l)*(float64(x)+0.5)*camera.nxInverse
+	vVal := camera.b + (camera.t-camera.b)*(float64(y)+0.5)*camera.nyInverse
 	utimes := camera.u.MultiplyFloat(uVal)
 	vtimes := camera.v.MultiplyFloat(vVal)
 	dtimes := camera.w.MultiplyFloat(-1 * camera.distance)
@@ -47,8 +47,8 @@ func GetCamera(eye, up, direction math.Vector3, fov, distance float64, nx, ny in
 		direction: direction,
 		fov:       fov,
 		distance:  distance,
-		nx:        nx,
-		ny:        ny,
+		nxInverse: 1.0 / float64(nx),
+		nyInverse: 1.0 / float64(ny),
 		w:         w,
 		u:         u,
 		v:         v,
